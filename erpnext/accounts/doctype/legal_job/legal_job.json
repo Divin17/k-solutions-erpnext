@@ -1,0 +1,192 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format: LGL-JB-{YY}-{#####}",
+ "creation": "2024-08-08 18:46:13.111193",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer_details_section",
+  "customer",
+  "contact",
+  "phone",
+  "email",
+  "company",
+  "column_break_mxu7e",
+  "names",
+  "address",
+  "address_detail",
+  "section_break_kln7j",
+  "services",
+  "other_information_section",
+  "job_description",
+  "column_break_izqwv",
+  "done_by",
+  "invoiced",
+  "paid",
+  "currency_section",
+  "currency",
+  "column_break_tc8wq",
+  "conversion_rate"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer_details_section",
+   "fieldtype": "Section Break",
+   "label": "Customer Details"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "names",
+   "fieldtype": "Data",
+   "label": "Names",
+   "options": "Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_primary_address",
+   "fieldname": "address",
+   "fieldtype": "Link",
+   "label": "Address",
+   "options": "Address",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_primary_contact",
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "label": "Contact",
+   "options": "Contact",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_mxu7e",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address_detail",
+   "fieldtype": "Small Text",
+   "label": "Address Detail",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "contact.phone",
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "contact.email_id",
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_kln7j",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "services",
+   "fieldtype": "Table",
+   "label": "Services",
+   "options": "Legal Job Items",
+   "reqd": 1
+  },
+  {
+   "fieldname": "other_information_section",
+   "fieldtype": "Section Break",
+   "label": "Other Information"
+  },
+  {
+   "fieldname": "job_description",
+   "fieldtype": "Small Text",
+   "label": "Job Description"
+  },
+  {
+   "fieldname": "done_by",
+   "fieldtype": "Link",
+   "label": "Done By",
+   "options": "User"
+  },
+  {
+   "default": "0",
+   "fieldname": "invoiced",
+   "fieldtype": "Check",
+   "label": "Invoiced"
+  },
+  {
+   "default": "0",
+   "fieldname": "paid",
+   "fieldtype": "Check",
+   "label": "Paid"
+  },
+  {
+   "fieldname": "column_break_izqwv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "currency_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Currency"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "conversion_rate",
+   "fieldtype": "Float",
+   "label": "Exchange Rate"
+  },
+  {
+   "fieldname": "column_break_tc8wq",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-08-13 14:22:38.526968",
+ "modified_by": "Administrator",
+ "module": "Accounts",
+ "name": "Legal Job",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
