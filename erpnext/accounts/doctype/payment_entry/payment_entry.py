@@ -98,6 +98,7 @@ class PaymentEntry(AccountsController):
 		self.update_outstanding_amounts()
 		self.update_advance_paid()
 		self.update_payment_schedule()
+		self.update_legal_job()
 		self.set_status()
 
 	def on_cancel(self):
@@ -552,6 +553,16 @@ class PaymentEntry(AccountsController):
 								d.reference_name, _(dr_or_cr)
 							)
 						)
+
+
+	def update_legal_job(self):
+		for ref in self.get("references"):
+			if (ref.reference_doctype == "Sales Invoice"):
+				doc = frappe.get_doc(ref.reference_doctype, ref.reference_name)
+				if doc.legal_job:
+					job = frappe.get_doc("Legal Job", doc.legal_job)
+					job.paid = 1
+					job.save()
 
 	def update_payment_schedule(self, cancel=0):
 		invoice_payment_amount_map = {}

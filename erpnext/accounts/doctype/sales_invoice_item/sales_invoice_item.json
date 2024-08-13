@@ -422,6 +422,7 @@
    "collapsible_depends_on": "eval:doc.delivered_by_supplier==1",
    "fieldname": "drop_ship",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Drop Ship"
   },
   {
@@ -436,6 +437,7 @@
    "collapsible": 1,
    "fieldname": "accounting",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Accounting Details"
   },
   {
@@ -490,6 +492,7 @@
    "collapsible_depends_on": "enable_deferred_revenue",
    "fieldname": "deferred_revenue",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Deferred Revenue"
   },
   {
@@ -535,6 +538,7 @@
    "collapsible": 1,
    "fieldname": "section_break_18",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Item Weight Details"
   },
   {
@@ -568,6 +572,7 @@
    "collapsible_depends_on": "eval:doc.serial_no || doc.batch_no",
    "fieldname": "warehouse_and_reference",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Stock Details"
   },
   {
@@ -682,6 +687,7 @@
    "collapsible": 1,
    "fieldname": "edit_references",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "References"
   },
   {
@@ -779,18 +785,21 @@
    "collapsible": 1,
    "fieldname": "description_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Description"
   },
   {
    "collapsible": 1,
    "fieldname": "image_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Image"
   },
   {
    "collapsible": 1,
    "fieldname": "accounting_dimensions_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Accounting Dimensions"
   },
   {
@@ -893,7 +902,7 @@
  "idx": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-23 16:36:18.970862",
+ "modified": "2024-08-08 19:52:34.934631",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "Sales Invoice Item",

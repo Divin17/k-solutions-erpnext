@@ -570,252 +570,291 @@ cur_frm.set_query("asset", "items", function(doc, cdt, cdn) {
 	}
 });
 
-frappe.ui.form.on('Sales Invoice', {
-	setup: function(frm){
-		frm.add_fetch('customer', 'tax_id', 'tax_id');
-		frm.add_fetch('payment_term', 'invoice_portion', 'invoice_portion');
-		frm.add_fetch('payment_term', 'description', 'description');
+frappe.ui.form.on("Sales Invoice", {
+	setup: function (frm) {
+		frm.add_fetch("customer", "tax_id", "tax_id");
+		frm.add_fetch("payment_term", "invoice_portion", "invoice_portion");
+		frm.add_fetch("payment_term", "description", "description");
 
-		frm.set_df_property('packed_items', 'cannot_add_rows', true);
-		frm.set_df_property('packed_items', 'cannot_delete_rows', true);
+		frm.set_df_property("packed_items", "cannot_add_rows", true);
+		frm.set_df_property("packed_items", "cannot_delete_rows", true);
 
-		frm.set_query("account_for_change_amount", function() {
+		frm.set_query("account_for_change_amount", function () {
 			return {
 				filters: {
-					account_type: ['in', ["Cash", "Bank"]],
+					account_type: ["in", ["Cash", "Bank"]],
 					company: frm.doc.company,
-					is_group: 0
-				}
+					is_group: 0,
+				},
 			};
 		});
 
-		frm.set_query("unrealized_profit_loss_account", function() {
+		frm.set_query("unrealized_profit_loss_account", function () {
 			return {
 				filters: {
 					company: frm.doc.company,
 					is_group: 0,
 					root_type: "Liability",
-				}
+				},
 			};
 		});
 
-		frm.set_query("adjustment_against", function() {
+		frm.set_query("adjustment_against", function () {
 			return {
 				filters: {
 					company: frm.doc.company,
 					customer: frm.doc.customer,
-					docstatus: 1
-				}
+					docstatus: 1,
+				},
 			};
 		});
 
-		frm.set_query("additional_discount_account", function() {
+		frm.set_query("additional_discount_account", function () {
 			return {
 				filters: {
 					company: frm.doc.company,
 					is_group: 0,
 					report_type: "Profit and Loss",
-				}
+				},
 			};
 		});
 
-		frm.set_query("income_account", "items", function() {
-			return{
+		frm.set_query("income_account", "items", function () {
+			return {
 				query: "erpnext.controllers.queries.get_income_account",
 				filters: {
-					'company': frm.doc.company,
-					"disabled": 0
-				}
-			}
-		});
-
-		frm.custom_make_buttons = {
-			'Delivery Note': 'Delivery',
-			'Sales Invoice': 'Return / Credit Note',
-			'Payment Request': 'Payment Request',
-			'Payment Entry': 'Payment'
-		},
-		frm.fields_dict["timesheets"].grid.get_field("time_sheet").get_query = function(doc, cdt, cdn){
-			return{
-				query: "erpnext.projects.doctype.timesheet.timesheet.get_timesheet",
-				filters: {'project': doc.project}
-			}
-		}
-
-		// discount account
-		frm.fields_dict['items'].grid.get_field('discount_account').get_query = function(doc) {
-			return {
-				filters: {
-					'report_type': 'Profit and Loss',
-					'company': doc.company,
-					"is_group": 0
-				}
-			}
-		}
-
-		frm.fields_dict['items'].grid.get_field('deferred_revenue_account').get_query = function(doc) {
-			return {
-				filters: {
-					'root_type': 'Liability',
-					'company': doc.company,
-					"is_group": 0
-				}
-			}
-		}
-
-		frm.set_query('company_address', function(doc) {
-			if(!doc.company) {
-				frappe.throw(__('Please set Company'));
-			}
-
-			return {
-				query: 'frappe.contacts.doctype.address.address.address_query',
-				filters: {
-					link_doctype: 'Company',
-					link_name: doc.company
-				}
+					company: frm.doc.company,
+					disabled: 0,
+				},
 			};
 		});
 
-		frm.set_query('pos_profile', function(doc) {
-			if(!doc.company) {
-				frappe.throw(_('Please set Company'));
+		(frm.custom_make_buttons = {
+			"Delivery Note": "Delivery",
+			"Sales Invoice": "Return / Credit Note",
+			"Payment Request": "Payment Request",
+			"Payment Entry": "Payment",
+		}),
+			(frm.fields_dict["timesheets"].grid.get_field("time_sheet").get_query = function (doc, cdt, cdn) {
+				return {
+					query: "erpnext.projects.doctype.timesheet.timesheet.get_timesheet",
+					filters: { project: doc.project },
+				};
+			});
+
+		// discount account
+		frm.fields_dict["items"].grid.get_field("discount_account").get_query = function (doc) {
+			return {
+				filters: {
+					report_type: "Profit and Loss",
+					company: doc.company,
+					is_group: 0,
+				},
+			};
+		};
+
+		frm.fields_dict["items"].grid.get_field("deferred_revenue_account").get_query = function (doc) {
+			return {
+				filters: {
+					root_type: "Liability",
+					company: doc.company,
+					is_group: 0,
+				},
+			};
+		};
+
+		frm.set_query("company_address", function (doc) {
+			if (!doc.company) {
+				frappe.throw(__("Please set Company"));
 			}
 
 			return {
-				query: 'erpnext.accounts.doctype.pos_profile.pos_profile.pos_profile_query',
+				query: "frappe.contacts.doctype.address.address.address_query",
 				filters: {
-					company: doc.company
-				}
+					link_doctype: "Company",
+					link_name: doc.company,
+				},
+			};
+		});
+
+		frm.set_query("pos_profile", function (doc) {
+			if (!doc.company) {
+				frappe.throw(_("Please set Company"));
+			}
+
+			return {
+				query: "erpnext.accounts.doctype.pos_profile.pos_profile.pos_profile_query",
+				filters: {
+					company: doc.company,
+				},
 			};
 		});
 
 		// set get_query for loyalty redemption account
-		frm.fields_dict["loyalty_redemption_account"].get_query = function() {
+		frm.fields_dict["loyalty_redemption_account"].get_query = function () {
 			return {
-				filters:{
-					"company": frm.doc.company,
-					"is_group": 0
-				}
-			}
+				filters: {
+					company: frm.doc.company,
+					is_group: 0,
+				},
+			};
 		};
 
 		// set get_query for loyalty redemption cost center
-		frm.fields_dict["loyalty_redemption_cost_center"].get_query = function() {
+		frm.fields_dict["loyalty_redemption_cost_center"].get_query = function () {
 			return {
-				filters:{
-					"company": frm.doc.company,
-					"is_group": 0
-				}
-			}
+				filters: {
+					company: frm.doc.company,
+					is_group: 0,
+				},
+			};
 		};
 	},
 	// When multiple companies are set up. in case company name is changed set default company address
-	company: function(frm){
+	company: function (frm) {
 		if (frm.doc.company) {
 			frappe.call({
 				method: "erpnext.setup.doctype.company.company.get_default_company_address",
-				args: {name:frm.doc.company, existing_address: frm.doc.company_address || ""},
+				args: { name: frm.doc.company, existing_address: frm.doc.company_address || "" },
 				debounce: 2000,
-				callback: function(r){
-					if (r.message){
-						frm.set_value("company_address",r.message)
+				callback: function (r) {
+					if (r.message) {
+						frm.set_value("company_address", r.message);
+					} else {
+						frm.set_value("company_address", "");
 					}
-					else {
-						frm.set_value("company_address","")
-					}
-				}
-			})
+				},
+			});
 		}
 	},
 
-	onload: function(frm) {
+	onload: function (frm) {
 		frm.redemption_conversion_factor = null;
 	},
 
-	update_stock: function(frm, dt, dn) {
-		frm.events.hide_fields(frm);
-		frm.fields_dict.items.grid.toggle_reqd("item_code", frm.doc.update_stock);
-		frm.trigger('reset_posting_time');
+	legal_job: function (frm) {
+		frm.events.get_legal_job_services(frm);
 	},
 
-	redeem_loyalty_points: function(frm) {
+	get_legal_job_services: function (frm) {
+		frappe.db
+			.get_list("Legal Job Items", {
+				fields: ["item", "item_name", "qty", "rate", "amount"],
+				filters: { parent: frm.doc.legal_job },
+			})
+			.then((res) => {
+				frm.clear_table("items");
+				res.forEach((item) => {
+					let row = frm.add_child("items");
+					frappe.model.set_value(row.doctype, row.name, "item_code", item.item)
+					frappe.model.set_value(row.doctype, row.name, "qty", item.qty)
+					frappe.model.set_value(row.doctype, row.name, "rate", item.rate)
+					frappe.model.set_value(row.doctype, row.name, "amount", item.amount)
+					// row.item_name = item.item_name;
+					// row.qty = item.qty;
+					// row.rate = item.rate;
+					// row.amount = item.amount;
+					frm.refresh_field("items");
+				});
+			});
+	},
+
+	update_stock: function (frm, dt, dn) {
+		frm.events.hide_fields(frm);
+		frm.fields_dict.items.grid.toggle_reqd("item_code", frm.doc.update_stock);
+		frm.trigger("reset_posting_time");
+	},
+
+	redeem_loyalty_points: function (frm) {
 		frm.events.get_loyalty_details(frm);
 	},
 
-	loyalty_points: function(frm) {
+	loyalty_points: function (frm) {
 		if (frm.redemption_conversion_factor) {
 			frm.events.set_loyalty_points(frm);
 		} else {
 			frappe.call({
 				method: "erpnext.accounts.doctype.loyalty_program.loyalty_program.get_redeemption_factor",
 				args: {
-					"loyalty_program": frm.doc.loyalty_program
+					loyalty_program: frm.doc.loyalty_program,
 				},
-				callback: function(r) {
+				callback: function (r) {
 					if (r) {
 						frm.redemption_conversion_factor = r.message;
 						frm.events.set_loyalty_points(frm);
 					}
-				}
+				},
 			});
 		}
 	},
 
-	hide_fields: function(frm) {
+	hide_fields: function (frm) {
 		let doc = frm.doc;
-		var parent_fields = ['project', 'due_date', 'is_opening', 'source', 'total_advance', 'get_advances',
-		'advances', 'from_date', 'to_date'];
+		var parent_fields = [
+			"project",
+			"due_date",
+			"is_opening",
+			"source",
+			"total_advance",
+			"get_advances",
+			"advances",
+			"from_date",
+			"to_date",
+		];
 
-		if(cint(doc.is_pos) == 1) {
+		if (cint(doc.is_pos) == 1) {
 			hide_field(parent_fields);
 		} else {
 			for (var i in parent_fields) {
 				var docfield = frappe.meta.docfield_map[doc.doctype][parent_fields[i]];
-				if(!docfield.hidden) unhide_field(parent_fields[i]);
+				if (!docfield.hidden) unhide_field(parent_fields[i]);
 			}
 		}
 
 		frm.refresh_fields();
 	},
 
-	get_loyalty_details: function(frm) {
+	get_loyalty_details: function (frm) {
 		if (frm.doc.customer && frm.doc.redeem_loyalty_points) {
 			frappe.call({
 				method: "erpnext.accounts.doctype.loyalty_program.loyalty_program.get_loyalty_program_details",
 				args: {
-					"customer": frm.doc.customer,
-					"loyalty_program": frm.doc.loyalty_program,
-					"expiry_date": frm.doc.posting_date,
-					"company": frm.doc.company
+					customer: frm.doc.customer,
+					loyalty_program: frm.doc.loyalty_program,
+					expiry_date: frm.doc.posting_date,
+					company: frm.doc.company,
 				},
-				callback: function(r) {
+				callback: function (r) {
 					if (r) {
 						frm.set_value("loyalty_redemption_account", r.message.expense_account);
 						frm.set_value("loyalty_redemption_cost_center", r.message.cost_center);
 						frm.redemption_conversion_factor = r.message.conversion_factor;
 					}
-				}
+				},
 			});
 		}
 	},
 
-	set_loyalty_points: function(frm) {
+	set_loyalty_points: function (frm) {
 		if (frm.redemption_conversion_factor) {
-			let loyalty_amount = flt(frm.redemption_conversion_factor*flt(frm.doc.loyalty_points), precision("loyalty_amount"));
-			var remaining_amount = flt(frm.doc.grand_total) - flt(frm.doc.total_advance) - flt(frm.doc.write_off_amount);
-			if (frm.doc.grand_total && (remaining_amount < loyalty_amount)) {
-				let redeemable_points = parseInt(remaining_amount/frm.redemption_conversion_factor);
-				frappe.throw(__("You can only redeem max {0} points in this order.",[redeemable_points]));
+			let loyalty_amount = flt(
+				frm.redemption_conversion_factor * flt(frm.doc.loyalty_points),
+				precision("loyalty_amount")
+			);
+			var remaining_amount =
+				flt(frm.doc.grand_total) - flt(frm.doc.total_advance) - flt(frm.doc.write_off_amount);
+			if (frm.doc.grand_total && remaining_amount < loyalty_amount) {
+				let redeemable_points = parseInt(remaining_amount / frm.redemption_conversion_factor);
+				frappe.throw(__("You can only redeem max {0} points in this order.", [redeemable_points]));
 			}
 			frm.set_value("loyalty_amount", loyalty_amount);
 		}
 	},
 
-	project: function(frm) {
+	project: function (frm) {
 		if (frm.doc.project) {
 			frm.events.add_timesheet_data(frm, {
-				project: frm.doc.project
+				project: frm.doc.project,
 			});
 		}
 	},
@@ -835,26 +874,30 @@ frappe.ui.form.on('Sales Invoice', {
 	},
 
 	async get_timesheet_data(frm, kwargs) {
-		return frappe.call({
-			method: "erpnext.projects.doctype.timesheet.timesheet.get_projectwise_timesheet_data",
-			args: kwargs
-		}).then(r => {
-			if (!r.exc && r.message.length > 0) {
-				return r.message
-			} else {
-				return []
-			}
-		});
+		return frappe
+			.call({
+				method: "erpnext.projects.doctype.timesheet.timesheet.get_projectwise_timesheet_data",
+				args: kwargs,
+			})
+			.then((r) => {
+				if (!r.exc && r.message.length > 0) {
+					return r.message;
+				} else {
+					return [];
+				}
+			});
 	},
 
-	set_timesheet_data: function(frm, timesheets) {
-		frm.clear_table("timesheets")
+	set_timesheet_data: function (frm, timesheets) {
+		frm.clear_table("timesheets");
 		timesheets.forEach(async (timesheet) => {
 			if (frm.doc.currency != timesheet.currency) {
 				const exchange_rate = await frm.events.get_exchange_rate(
-					frm, timesheet.currency, frm.doc.currency
-				)
-				frm.events.append_time_log(frm, timesheet, exchange_rate)
+					frm,
+					timesheet.currency,
+					frm.doc.currency
+				);
+				frm.events.append_time_log(frm, timesheet, exchange_rate);
 			} else {
 				frm.events.append_time_log(frm, timesheet, 1.0);
 			}
@@ -865,9 +908,9 @@ frappe.ui.form.on('Sales Invoice', {
 
 	async get_exchange_rate(frm, from_currency, to_currency) {
 		if (
-			frm.exchange_rates
-			&& frm.exchange_rates[from_currency]
-			&& frm.exchange_rates[from_currency][to_currency]
+			frm.exchange_rates &&
+			frm.exchange_rates[from_currency] &&
+			frm.exchange_rates[from_currency][to_currency]
 		) {
 			return frm.exchange_rates[from_currency][to_currency];
 		}
@@ -876,20 +919,20 @@ frappe.ui.form.on('Sales Invoice', {
 			method: "erpnext.setup.utils.get_exchange_rate",
 			args: {
 				from_currency,
-				to_currency
+				to_currency,
 			},
-			callback: function(r) {
+			callback: function (r) {
 				if (r.message) {
 					// cache exchange rates
 					frm.exchange_rates = frm.exchange_rates || {};
 					frm.exchange_rates[from_currency] = frm.exchange_rates[from_currency] || {};
 					frm.exchange_rates[from_currency][to_currency] = r.message;
 				}
-			}
+			},
 		});
 	},
 
-	append_time_log: function(frm, time_log, exchange_rate) {
+	append_time_log: function (frm, time_log, exchange_rate) {
 		const row = frm.add_child("timesheets");
 		row.activity_type = time_log.activity_type;
 		row.description = time_log.description;
@@ -902,76 +945,80 @@ frappe.ui.form.on('Sales Invoice', {
 		row.project_name = time_log.project_name;
 	},
 
-	calculate_timesheet_totals: function(frm) {
-		frm.set_value("total_billing_amount",
-			frm.doc.timesheets.reduce((a, b) => a + (b["billing_amount"] || 0.0), 0.0));
-		frm.set_value("total_billing_hours",
-			frm.doc.timesheets.reduce((a, b) => a + (b["billing_hours"] || 0.0), 0.0));
+	calculate_timesheet_totals: function (frm) {
+		frm.set_value(
+			"total_billing_amount",
+			frm.doc.timesheets.reduce((a, b) => a + (b["billing_amount"] || 0.0), 0.0)
+		);
+		frm.set_value(
+			"total_billing_hours",
+			frm.doc.timesheets.reduce((a, b) => a + (b["billing_hours"] || 0.0), 0.0)
+		);
 	},
 
-	refresh: function(frm) {
-		if (frm.doc.docstatus===0 && !frm.doc.is_return) {
-			frm.add_custom_button(__("Fetch Timesheet"), function() {
+	refresh: function (frm) {
+		if (frm.doc.docstatus === 0 && !frm.doc.is_return) {
+			frm.add_custom_button(__("Fetch Timesheet"), function () {
 				let d = new frappe.ui.Dialog({
 					title: __("Fetch Timesheet"),
 					fields: [
 						{
-							"label" : __("From"),
-							"fieldname": "from_time",
-							"fieldtype": "Date",
-							"reqd": 1,
+							label: __("From"),
+							fieldname: "from_time",
+							fieldtype: "Date",
+							reqd: 1,
 						},
 						{
 							fieldtype: "Column Break",
 							fieldname: "col_break_1",
 						},
 						{
-							"label" : __("To"),
-							"fieldname": "to_time",
-							"fieldtype": "Date",
-							"reqd": 1,
+							label: __("To"),
+							fieldname: "to_time",
+							fieldtype: "Date",
+							reqd: 1,
 						},
 						{
-							"label" : __("Project"),
-							"fieldname": "project",
-							"fieldtype": "Link",
-							"options": "Project",
-							"default": frm.doc.project
+							label: __("Project"),
+							fieldname: "project",
+							fieldtype: "Link",
+							options: "Project",
+							default: frm.doc.project,
 						},
 					],
-					primary_action: function() {
+					primary_action: function () {
 						const data = d.get_values();
 						frm.events.add_timesheet_data(frm, {
 							from_time: data.from_time,
 							to_time: data.to_time,
-							project: data.project
+							project: data.project,
 						});
 						d.hide();
 					},
-					primary_action_label: __("Get Timesheets")
+					primary_action_label: __("Get Timesheets"),
 				});
 				d.show();
 			});
 		}
 
 		if (frm.doc.is_debit_note) {
-			frm.set_df_property('return_against', 'label', __('Adjustment Against'));
+			frm.set_df_property("return_against", "label", __("Adjustment Against"));
 		}
 	},
 
-	create_invoice_discounting: function(frm) {
+	create_invoice_discounting: function (frm) {
 		frappe.model.open_mapped_doc({
 			method: "erpnext.accounts.doctype.sales_invoice.sales_invoice.create_invoice_discounting",
-			frm: frm
+			frm: frm,
 		});
 	},
 
-	create_dunning: function(frm) {
+	create_dunning: function (frm) {
 		frappe.model.open_mapped_doc({
 			method: "erpnext.accounts.doctype.sales_invoice.sales_invoice.create_dunning",
-			frm: frm
+			frm: frm,
 		});
-	}
+	},
 });
 
 frappe.ui.form.on("Sales Invoice Timesheet", {

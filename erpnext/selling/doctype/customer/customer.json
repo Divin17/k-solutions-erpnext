@@ -143,6 +143,7 @@
   {
    "fieldname": "lead_name",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "From Lead",
    "no_copy": 1,
    "oldfieldname": "lead_name",
@@ -166,6 +167,7 @@
   {
    "fieldname": "account_manager",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Account Manager",
    "options": "User"
   },
@@ -473,6 +475,7 @@
   {
    "fieldname": "opportunity_name",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "From Opportunity",
    "no_copy": 1,
    "options": "Opportunity",
@@ -498,6 +501,7 @@
    "collapsible_depends_on": "default_sales_partner",
    "fieldname": "sales_team_tab",
    "fieldtype": "Tab Break",
+   "hidden": 1,
    "label": "Sales Team",
    "oldfieldtype": "Section Break",
    "options": "fa fa-group"
@@ -533,6 +537,7 @@
   {
    "fieldname": "accounting_tab",
    "fieldtype": "Tab Break",
+   "hidden": 1,
    "label": "Accounting"
   },
   {
@@ -563,11 +568,12 @@
  "links": [
   {
    "group": "Allowed Items",
+   "hidden": 1,
    "link_doctype": "Party Specific Item",
    "link_fieldname": "party"
   }
  ],
- "modified": "2024-05-08 18:03:20.716169",
+ "modified": "2024-08-08 18:39:20.519303",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Customer",

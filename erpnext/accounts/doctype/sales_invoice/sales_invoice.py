@@ -315,6 +315,12 @@ class SalesInvoice(SellingController):
 
 		self.process_common_party_accounting()
 
+		# Update legal job status
+		if self.legal_job:
+			job = frappe.get_doc("Legal Job", self.legal_job)
+			job.invoiced = 1
+			job.save()
+
 	def validate_pos_return(self):
 		if self.is_consolidated:
 			# pos return is already validated in pos invoice

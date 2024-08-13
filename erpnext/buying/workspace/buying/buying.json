@@ -14,7 +14,7 @@
  "hide_custom": 0,
  "icon": "buying",
  "idx": 0,
- "is_hidden": 0,
+ "is_hidden": 1,
  "label": "Buying",
  "links": [
   {
@@ -511,7 +511,7 @@
    "type": "Link"
   }
  ],
- "modified": "2023-05-24 14:47:20.535772",
+ "modified": "2024-08-08 19:58:01.189563",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Buying",
@@ -522,7 +522,7 @@
  "quick_lists": [],
  "restrict_to_domain": "",
  "roles": [],
- "sequence_id": 5.0,
+ "sequence_id": 4.0,
  "shortcuts": [
   {
    "color": "Green",
