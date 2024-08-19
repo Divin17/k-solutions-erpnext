@@ -561,7 +561,7 @@ class PaymentEntry(AccountsController):
 				doc = frappe.get_doc(ref.reference_doctype, ref.reference_name)
 				if doc.legal_job:
 					job = frappe.get_doc("Legal Job", doc.legal_job)
-					job.paid = 1
+					job.status = ""
 					job.save()
 
 	def update_payment_schedule(self, cancel=0):

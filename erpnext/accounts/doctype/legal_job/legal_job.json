@@ -20,12 +20,14 @@
   "address_detail",
   "section_break_kln7j",
   "services",
+  "section_break_taq0n",
+  "column_break_4etct",
+  "total_amount",
   "other_information_section",
   "job_description",
   "column_break_izqwv",
   "done_by",
-  "invoiced",
-  "paid",
+  "status",
   "currency_section",
   "currency",
   "column_break_tc8wq",
@@ -121,18 +123,6 @@
    "options": "User"
   },
   {
-   "default": "0",
-   "fieldname": "invoiced",
-   "fieldtype": "Check",
-   "label": "Invoiced"
-  },
-  {
-   "default": "0",
-   "fieldname": "paid",
-   "fieldtype": "Check",
-   "label": "Paid"
-  },
-  {
    "fieldname": "column_break_izqwv",
    "fieldtype": "Column Break"
   },
@@ -162,11 +152,31 @@
   {
    "fieldname": "column_break_tc8wq",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Ongoing\nOn Hold\nCompleted\nInvoiced\nPartially Paid\nPaid\nRejected"
+  },
+  {
+   "fieldname": "section_break_taq0n",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_4etct",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-13 14:22:38.526968",
+ "modified": "2024-08-19 17:46:56.099075",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "Legal Job",

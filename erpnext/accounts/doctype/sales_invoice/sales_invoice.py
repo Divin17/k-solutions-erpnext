@@ -318,7 +318,7 @@ class SalesInvoice(SellingController):
 		# Update legal job status
 		if self.legal_job:
 			job = frappe.get_doc("Legal Job", self.legal_job)
-			job.invoiced = 1
+			job.status = "Invoiced"
 			job.save()
 
 	def validate_pos_return(self):
