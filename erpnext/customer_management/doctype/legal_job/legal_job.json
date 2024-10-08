@@ -46,37 +46,11 @@
    "reqd": 1
   },
   {
-   "fetch_from": "customer.customer_name",
-   "fieldname": "names",
-   "fieldtype": "Data",
-   "label": "Names",
-   "options": "Name",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "customer.customer_primary_address",
-   "fieldname": "address",
-   "fieldtype": "Link",
-   "label": "Address",
-   "options": "Address",
-   "read_only": 1
-  },
-  {
    "fetch_from": "customer.customer_primary_contact",
    "fieldname": "contact",
    "fieldtype": "Link",
    "label": "Contact",
    "options": "Contact",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_mxu7e",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "address_detail",
-   "fieldtype": "Small Text",
-   "label": "Address Detail",
    "read_only": 1
   },
   {
@@ -94,6 +68,38 @@
    "read_only": 1
   },
   {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "column_break_mxu7e",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "names",
+   "fieldtype": "Data",
+   "label": "Names",
+   "options": "Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_primary_address",
+   "fieldname": "address",
+   "fieldtype": "Link",
+   "label": "Address",
+   "options": "Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "address_detail",
+   "fieldtype": "Small Text",
+   "label": "Address Detail",
+   "read_only": 1
+  },
+  {
    "fieldname": "section_break_kln7j",
    "fieldtype": "Section Break"
   },
@@ -103,6 +109,12 @@
    "label": "Services",
    "options": "Legal Job Items",
    "reqd": 1
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount",
+   "read_only": 1
   },
   {
    "fieldname": "other_information_section",
@@ -115,20 +127,20 @@
    "label": "Job Description"
   },
   {
+   "fieldname": "column_break_izqwv",
+   "fieldtype": "Column Break"
+  },
+  {
    "fieldname": "done_by",
    "fieldtype": "Link",
    "label": "Done By",
    "options": "User"
   },
   {
-   "fieldname": "column_break_izqwv",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "company",
-   "fieldtype": "Link",
-   "label": "Company",
-   "options": "Company"
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Ongoing\nOn Hold\nCompleted\nInvoiced\nPartially Paid\nPaid\nRejected"
   },
   {
    "fieldname": "currency_section",
@@ -143,32 +155,20 @@
    "options": "Currency"
   },
   {
-   "fieldname": "conversion_rate",
-   "fieldtype": "Float",
-   "label": "Exchange Rate"
-  },
-  {
    "fieldname": "column_break_tc8wq",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "Ongoing\nOn Hold\nCompleted\nInvoiced\nPartially Paid\nPaid\nRejected"
-  },
-  {
-   "fieldname": "total_amount",
-   "fieldtype": "Currency",
-   "label": "Total Amount",
-   "read_only": 1
+   "fieldname": "conversion_rate",
+   "fieldtype": "Float",
+   "label": "Exchange Rate"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-20 09:58:45.760687",
+ "modified": "2024-08-20 15:43:22.269536",
  "modified_by": "Administrator",
- "module": "Accounts",
+ "module": "Customer Management",
  "name": "Legal Job",
  "naming_rule": "Expression",
  "owner": "Administrator",
