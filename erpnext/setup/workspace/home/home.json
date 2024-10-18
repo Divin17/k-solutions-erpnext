@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"kb3XPLg8lb\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"Y7X6ZCOHD3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customers\",\"col\":3}},{\"id\":\"iZekJDKNS-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Lega Jobs\",\"col\":3}},{\"id\":\"0czBQvusi5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoices\",\"col\":3}},{\"id\":\"rZqDxIdqS7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Invoices Payments\",\"col\":3}},{\"id\":\"d_KVM1gsf9\",\"type\":\"spacer\",\"data\":{\"col\":12}}]",
+ "content": "[{\"id\":\"kb3XPLg8lb\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"Y7X6ZCOHD3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customers\",\"col\":3}},{\"id\":\"iD6RRoBQCW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Quotation\",\"col\":3}},{\"id\":\"iZekJDKNS-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Lega Jobs\",\"col\":3}},{\"id\":\"0czBQvusi5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoices\",\"col\":3}},{\"id\":\"rZqDxIdqS7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Invoices Payments\",\"col\":3}},{\"id\":\"d_KVM1gsf9\",\"type\":\"spacer\",\"data\":{\"col\":12}}]",
  "creation": "2020-01-23 13:46:38.833076",
  "custom_blocks": [],
  "docstatus": 0,
@@ -200,7 +200,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-10-08 20:30:09.558646",
+ "modified": "2024-10-18 16:20:19.870191",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Home",
@@ -218,6 +218,14 @@
    "doc_view": "List",
    "label": "Customers",
    "link_to": "Customer",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Quotation",
+   "link_to": "Quotation",
    "stats_filter": "[]",
    "type": "DocType"
   },
