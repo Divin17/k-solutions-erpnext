@@ -14,10 +14,13 @@
   "phone",
   "email",
   "company",
+  "start_date",
+  "end_date",
   "column_break_mxu7e",
   "names",
   "address",
   "address_detail",
+  "customer_group",
   "section_break_kln7j",
   "services",
   "total_amount",
@@ -43,6 +46,7 @@
    "fieldname": "customer",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Customer",
    "options": "Customer",
    "reqd": 1
@@ -175,11 +179,35 @@
   {
    "fieldname": "section_break_qrgma",
    "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "customer.customer_group",
+   "fetch_if_empty": 1,
+   "fieldname": "customer_group",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Customer Group",
+   "options": "Customer Group",
+   "read_only": 1
+  },
+  {
+   "default": "now",
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "in_standard_filter": 1,
+   "label": "End Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-18 13:32:30.524285",
+ "modified": "2024-10-18 16:15:29.828901",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Legal Job",
