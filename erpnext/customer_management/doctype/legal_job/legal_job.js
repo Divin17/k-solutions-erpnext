@@ -4,13 +4,17 @@
 frappe.ui.form.on("Legal Job", {
 	refresh: function (frm) {
 		frm.add_custom_button("Invoice the Job", function () {
+			console.log(frm.doc.services);
 			frappe.route_options = {
 				customer: frm.doc.customer,
 				legal_job: frm.doc.name,
-				items: frm.doc.items,
+				// items: frm.doc.services,
 			};
 			frappe.new_doc("Sales Invoice");
 		});
+	},
+	onload_post_render: function (frm) {
+		frm.refresh_field("services");
 	},
 	customer: async function (frm) {
 		let default_currency = (await frappe.db.get_value("Company", frm.doc.company, "default_currency"))
@@ -48,6 +52,27 @@ frappe.ui.form.on("Legal Job", {
 		if (!frm.doc.address) {
 			frm.set_value("primary_address", "");
 		}
+	},
+	quotation: function (frm) {
+		frm.events.get_quotation_items(frm);
+	},
+	get_quotation_items: function (frm) {
+		frappe.db
+			.get_list("Quotation Item", {
+				fields: ["item_code", "item_name", "qty", "rate", "amount"],
+				filters: { parent: frm.doc.quotation },
+			})
+			.then((res) => {
+				frm.clear_table("services");
+				res.forEach((item) => {
+					let row = frm.add_child("services");
+					frappe.model.set_value(row.doctype, row.name, "item", item.item_code);
+					frappe.model.set_value(row.doctype, row.name, "qty", item.qty);
+					frappe.model.set_value(row.doctype, row.name, "rate", item.rate);
+					frappe.model.set_value(row.doctype, row.name, "amount", item.amount);
+					frm.refresh_field("services");
+				});
+			});
 	},
 });
 frappe.ui.form.on("Legal Job Items", {

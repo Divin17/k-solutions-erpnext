@@ -29,7 +29,9 @@
   "currency_section",
   "currency",
   "column_break_tc8wq",
-  "conversion_rate"
+  "conversion_rate",
+  "section_break_qrgma",
+  "quotation"
  ],
  "fields": [
   {
@@ -162,11 +164,22 @@
    "fieldname": "conversion_rate",
    "fieldtype": "Float",
    "label": "Exchange Rate"
+  },
+  {
+   "fieldname": "quotation",
+   "fieldtype": "Link",
+   "label": "Quotation",
+   "options": "Quotation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_qrgma",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-20 15:43:22.269536",
+ "modified": "2024-10-18 13:32:30.524285",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Legal Job",

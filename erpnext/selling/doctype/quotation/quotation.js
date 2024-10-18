@@ -91,8 +91,23 @@ erpnext.selling.QuotationController = class QuotationController extends erpnext.
 				|| (!doc.valid_till)
 				|| frappe.datetime.get_diff(doc.valid_till, frappe.datetime.get_today()) >= 0) {
 					this.frm.add_custom_button(
-						__("Sales Order"),
-						() => this.make_sales_order(),
+						__("Legal Job"),
+						function () {
+							const items = doc.items.map(({ item_code, item_name, qty, rate, amount }) => ({
+								item: item_code,
+								item_name,
+								qty,
+								rate,
+								amount
+							}));
+							console.log(items);
+							frappe.route_options = {
+								customer: doc.party_name,
+								quotation: doc.name,
+								services: items,
+							};
+							frappe.new_doc("Legal Job");
+						},
 						__("Create")
 					);
 				}
@@ -103,11 +118,11 @@ erpnext.selling.QuotationController = class QuotationController extends erpnext.
 					});
 				}
 
-			if(!doc.auto_repeat) {
-				cur_frm.add_custom_button(__('Subscription'), function() {
-					erpnext.utils.make_subscription(doc.doctype, doc.name)
-				}, __('Create'))
-			}
+			// if(!doc.auto_repeat) {
+			// 	cur_frm.add_custom_button(__('Subscription'), function() {
+			// 		erpnext.utils.make_subscription(doc.doctype, doc.name)
+			// 	}, __('Create'))
+			// }
 
 			cur_frm.page.set_inner_btn_group_as_primary(__('Create'));
 		}
