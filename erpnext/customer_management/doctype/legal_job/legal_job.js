@@ -8,7 +8,6 @@ frappe.ui.form.on("Legal Job", {
 			frappe.route_options = {
 				customer: frm.doc.customer,
 				legal_job: frm.doc.name,
-				// items: frm.doc.services,
 			};
 			frappe.new_doc("Sales Invoice");
 		});
