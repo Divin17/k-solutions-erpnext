@@ -31,7 +31,6 @@
   "status",
   "currency_section",
   "currency",
-  "column_break_tc8wq",
   "conversion_rate",
   "section_break_qrgma",
   "quotation"
@@ -151,23 +150,16 @@
   {
    "fieldname": "currency_section",
    "fieldtype": "Section Break",
-   "hidden": 1,
    "label": "Currency"
   },
   {
+   "default": "RWF",
+   "fetch_from": "customer.default_currency",
    "fieldname": "currency",
    "fieldtype": "Link",
    "label": "Currency",
-   "options": "Currency"
-  },
-  {
-   "fieldname": "column_break_tc8wq",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "conversion_rate",
-   "fieldtype": "Float",
-   "label": "Exchange Rate"
+   "options": "Currency",
+   "reqd": 1
   },
   {
    "fieldname": "quotation",
@@ -203,11 +195,17 @@
    "fieldtype": "Date",
    "in_standard_filter": 1,
    "label": "End Date"
+  },
+  {
+   "default": "1",
+   "fieldname": "conversion_rate",
+   "fieldtype": "Float",
+   "label": "Exchange Rate"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-18 16:15:29.828901",
+ "modified": "2024-10-24 11:00:15.611586",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Legal Job",

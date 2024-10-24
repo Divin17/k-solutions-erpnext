@@ -499,6 +499,7 @@
    "collapsible": 1,
    "fieldname": "taxes_and_charges_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Taxes and Charges"
   },
   {
@@ -537,6 +538,7 @@
   {
    "fieldname": "section_break_56",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "hide_border": 1
   },
   {
@@ -549,6 +551,7 @@
   {
    "fieldname": "section_break_60",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "hide_border": 1
   },
   {
@@ -753,7 +756,7 @@
    "table_fieldname": "payment_entries"
   }
  ],
- "modified": "2024-08-22 16:04:19.264491",
+ "modified": "2024-10-24 11:26:21.851732",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Payment Entry",

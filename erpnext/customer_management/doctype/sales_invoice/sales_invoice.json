@@ -520,6 +520,7 @@
    "label": "Currency and Price List"
   },
   {
+   "fetch_from": "legal_job.currency",
    "fieldname": "currency",
    "fieldtype": "Link",
    "hide_days": 1,
@@ -2199,10 +2200,12 @@
   },
   {
    "fetch_from": "legal_job.job_description",
+   "fetch_if_empty": 1,
    "fieldname": "job_description",
    "fieldtype": "Text",
    "label": "Job Description",
-   "max_height": "100px"
+   "max_height": "100px",
+   "read_only_depends_on": "false"
   }
  ],
  "icon": "fa fa-file-text",
@@ -2215,7 +2218,7 @@
    "link_fieldname": "consolidated_invoice"
   }
  ],
- "modified": "2024-08-22 15:56:52.312257",
+ "modified": "2024-10-24 10:59:38.508805",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Sales Invoice",
