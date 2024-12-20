@@ -980,7 +980,7 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 
 		}
 		// Make read only if Accounts Settings doesn't allow stale rates
-		this.frm.set_df_property("conversion_rate", "read_only", erpnext.stale_rate_allowed() ? 0 : 1);
+		// this.frm.set_df_property("conversion_rate", "read_only", erpnext.stale_rate_allowed() ? 0 : 1);
 	}
 
 	apply_discount_on_item(doc, cdt, cdn, field) {
@@ -1038,20 +1038,20 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 		}
 
 		if (!transaction_date || !from_currency || !to_currency) return;
-		return frappe.call({
-			method: "erpnext.setup.utils.get_exchange_rate",
-			args: {
-				transaction_date: transaction_date,
-				from_currency: from_currency,
-				to_currency: to_currency,
-				args: args
-			},
-			freeze: true,
-			freeze_message: __("Fetching exchange rates ..."),
-			callback: function(r) {
-				callback(flt(r.message));
-			}
-		});
+		// return frappe.call({
+		// 	method: "erpnext.setup.utils.get_exchange_rate",
+		// 	args: {
+		// 		transaction_date: transaction_date,
+		// 		from_currency: from_currency,
+		// 		to_currency: to_currency,
+		// 		args: args
+		// 	},
+		// 	freeze: true,
+		// 	freeze_message: __("Fetching exchange rates ..."),
+		// 	callback: function(r) {
+		// 		callback(flt(r.message));
+		// 	}
+		// });
 	}
 
 	price_list_currency() {
@@ -1668,32 +1668,33 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 		if (me.in_apply_price_list == true) return;
 
 		me.in_apply_price_list = true;
-		return this.frm.call({
-			method: "erpnext.stock.get_item_details.apply_price_list",
-			args: {	args: args, doc: me.frm.doc },
-			callback: function(r) {
-				if (!r.exc) {
-					frappe.run_serially([
-						() => me.frm.set_value("price_list_currency", r.message.parent.price_list_currency),
-						() => me.frm.set_value("plc_conversion_rate", r.message.parent.plc_conversion_rate),
-						() => {
-							if(args.items.length) {
-								me._set_values_for_item_list(r.message.children);
-								$.each(r.message.children || [], function(i, d) {
-									me.apply_discount_on_item(d, d.doctype, d.name, 'discount_percentage');
-								});
-							}
-						},
-						() => { me.in_apply_price_list = false; }
-					]);
+		return
+		// return this.frm.call({
+		// 	method: "erpnext.stock.get_item_details.apply_price_list",
+		// 	args: {	args: args, doc: me.frm.doc },
+		// 	callback: function(r) {
+		// 		if (!r.exc) {
+		// 			frappe.run_serially([
+		// 				() => me.frm.set_value("price_list_currency", r.message.parent.price_list_currency),
+		// 				() => me.frm.set_value("plc_conversion_rate", r.message.parent.plc_conversion_rate),
+		// 				() => {
+		// 					if(args.items.length) {
+		// 						me._set_values_for_item_list(r.message.children);
+		// 						$.each(r.message.children || [], function(i, d) {
+		// 							me.apply_discount_on_item(d, d.doctype, d.name, 'discount_percentage');
+		// 						});
+		// 					}
+		// 				},
+		// 				() => { me.in_apply_price_list = false; }
+		// 			]);
 
-				} else {
-					me.in_apply_price_list = false;
-				}
-			}
-		}).always(() => {
-			me.in_apply_price_list = false;
-		});
+		// 		} else {
+		// 			me.in_apply_price_list = false;
+		// 		}
+		// 	}
+		// }).always(() => {
+		// 	me.in_apply_price_list = false;
+		// });
 	}
 
 	remove_pricing_rule(item) {

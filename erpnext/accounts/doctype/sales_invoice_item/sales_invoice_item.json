@@ -132,6 +132,8 @@
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "item_code.item_name",
+   "fetch_if_empty": 1,
    "fieldname": "item_name",
    "fieldtype": "Data",
    "in_global_search": 1,
@@ -150,6 +152,8 @@
    "read_only": 1
   },
   {
+   "fetch_from": "item_code.description",
+   "fetch_if_empty": 1,
    "fieldname": "description",
    "fieldtype": "Text Editor",
    "label": "Description",
@@ -200,6 +204,8 @@
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "item_code.stock_uom",
+   "fetch_if_empty": 1,
    "fieldname": "uom",
    "fieldtype": "Link",
    "label": "UOM",
@@ -442,6 +448,8 @@
   },
   {
    "allow_on_submit": 1,
+   "fetch_from": "company.default_income_account",
+   "fetch_if_empty": 1,
    "fieldname": "income_account",
    "fieldtype": "Link",
    "label": "Income Account",
@@ -902,7 +910,7 @@
  "idx": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-08-08 19:52:34.934631",
+ "modified": "2024-11-27 13:46:41.343885",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "Sales Invoice Item",

@@ -30,10 +30,8 @@ frappe.ui.form.on("Legal Job", {
 				"exchange_rate"
 			)
 		).message.exchange_rate;
-		console.log("Currency", exchange_rate);
 
 		frm.set_value("currency", customer_currency);
-		frm.set_value("conversion_rate", exchange_rate);
 		frm.refresh();
 	},
 	address: function (frm) {
@@ -69,12 +67,32 @@ frappe.ui.form.on("Legal Job", {
 					frappe.model.set_value(row.doctype, row.name, "qty", item.qty);
 					frappe.model.set_value(row.doctype, row.name, "rate", item.rate);
 					frappe.model.set_value(row.doctype, row.name, "amount", item.amount);
+					frappe.model.set_value(row.doctype, row.name, "currency", frm.doc.currency);
 					frm.refresh_field("services");
 				});
 			});
 	},
+	validate: function(frm) {
+        // Ensures the total amount currency label is updated before saving
+        if (frm.doc.currency) {
+            frm.set_currency_labels(['total_amount'], frm.doc.currency);
+				frm.set_currency_labels(["rate", "amount"], frm.doc.currency, "services");
+        }
+    },
+	currency: function (frm) {
+		if (frm.doc.currency) {
+			frm.set_currency_labels(['total_amount'], frm.doc.currency);
+			frm.set_currency_labels(["rate", "amount"], frm.doc.currency, "services");
+			frm.refresh();
+			frm.refresh_field("services");
+		}
+		frm.refresh();
+	},
 });
 frappe.ui.form.on("Legal Job Items", {
+	item:function(frm,cdt,cdn){
+		frappe.model.set_value(cdt, cdn, "currency", frm.doc.currency);
+	},
 	qty: function (frm, cdt, cdn) {
 		calculate_amount(frm, cdt, cdn);
 		calculate_total_amount(frm);

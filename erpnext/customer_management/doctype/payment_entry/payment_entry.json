@@ -234,6 +234,7 @@
    "collapsible": 1,
    "fieldname": "payment_accounts_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Accounts"
   },
   {
@@ -395,7 +396,7 @@
    "fieldtype": "Float",
    "label": "Target Exchange Rate",
    "precision": "9",
-   "print_hide": 1,
+   "print_hide_if_no_value": 1,
    "reqd": 1
   },
   {
@@ -418,9 +419,10 @@
    "read_only": 1
   },
   {
-   "depends_on": "eval:(doc.party && doc.paid_from && doc.paid_to && doc.paid_amount && doc.received_amount)",
+   "depends_on": "//eval:(doc.party && doc.paid_from && doc.paid_to && doc.paid_amount && doc.received_amount)",
    "fieldname": "section_break_14",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Reference"
   },
   {
@@ -444,6 +446,7 @@
   {
    "fieldname": "section_break_34",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Writeoff"
   },
   {
@@ -574,9 +577,10 @@
   {
    "collapsible": 1,
    "collapsible_depends_on": "deductions",
-   "depends_on": "eval:(doc.paid_amount && doc.received_amount)",
+   "depends_on": "//eval:(doc.paid_amount && doc.received_amount)",
    "fieldname": "deductions_or_loss_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Deductions or Loss"
   },
   {
@@ -756,7 +760,7 @@
    "table_fieldname": "payment_entries"
   }
  ],
- "modified": "2024-10-24 11:26:21.851732",
+ "modified": "2024-12-16 09:47:45.688729",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Payment Entry",

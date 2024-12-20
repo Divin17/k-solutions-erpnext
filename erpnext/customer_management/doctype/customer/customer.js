@@ -101,8 +101,19 @@ frappe.ui.form.on("Customer", {
 		if (frm.doc.loyalty_program) {
 			frm.set_value("loyalty_program_tier", null);
 		}
+},
+	default_currency: async function(frm){
+		let currency = frappe.defaults.get_user_default("Currency");
+		let company = frappe.defaults.get_user_default("Company");
+		let abbr = (await frappe.db.get_value("Company", company, "abbr")).message.abbr;
+                frm.clear_table("accounts");
+		if(frm.doc.default_currency != currency){
+			let child = frm.add_child('accounts');
+			child.company = company;
+			child.account = `Debtors ${frm.doc.default_currency} - ${abbr}`
+		}
+                refresh_field("accounts");
 	},
-
 	refresh: function (frm) {
 		if (frappe.defaults.get_default("cust_master_name") != "Naming Series") {
 			frm.toggle_display("naming_series", false);

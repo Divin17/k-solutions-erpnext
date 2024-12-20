@@ -21,6 +21,8 @@
   "address",
   "address_detail",
   "customer_group",
+  "currency_and_price_list_section",
+  "currency",
   "section_break_kln7j",
   "services",
   "total_amount",
@@ -29,10 +31,6 @@
   "column_break_izqwv",
   "done_by",
   "status",
-  "currency_section",
-  "currency",
-  "conversion_rate",
-  "section_break_qrgma",
   "quotation"
  ],
  "fields": [
@@ -119,6 +117,7 @@
    "fieldname": "total_amount",
    "fieldtype": "Currency",
    "label": "Total Amount",
+   "options": "currency",
    "read_only": 1
   },
   {
@@ -148,17 +147,13 @@
    "options": "Ongoing\nOn Hold\nCompleted\nInvoiced\nPartially Paid\nPaid\nRejected"
   },
   {
-   "fieldname": "currency_section",
-   "fieldtype": "Section Break",
-   "label": "Currency"
-  },
-  {
    "default": "RWF",
    "fetch_from": "customer.default_currency",
    "fieldname": "currency",
    "fieldtype": "Link",
    "label": "Currency",
    "options": "Currency",
+   "print_hide": 1,
    "reqd": 1
   },
   {
@@ -167,10 +162,6 @@
    "label": "Quotation",
    "options": "Quotation",
    "read_only": 1
-  },
-  {
-   "fieldname": "section_break_qrgma",
-   "fieldtype": "Section Break"
   },
   {
    "fetch_from": "customer.customer_group",
@@ -197,15 +188,14 @@
    "label": "End Date"
   },
   {
-   "default": "1",
-   "fieldname": "conversion_rate",
-   "fieldtype": "Float",
-   "label": "Exchange Rate"
+   "fieldname": "currency_and_price_list_section",
+   "fieldtype": "Section Break",
+   "label": "Currency and Price List"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-24 11:00:15.611586",
+ "modified": "2024-11-10 17:42:42.792319",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Legal Job",
