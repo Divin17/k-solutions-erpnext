@@ -938,7 +938,6 @@
    "fieldtype": "Currency",
    "hide_days": 1,
    "hide_seconds": 1,
-   "in_list_view": 1,
    "label": "Grand Total",
    "oldfieldname": "grand_total_export",
    "oldfieldtype": "Currency",
@@ -971,6 +970,7 @@
    "fieldtype": "Currency",
    "hide_days": 1,
    "hide_seconds": 1,
+   "in_list_view": 1,
    "label": "Rounded Total",
    "oldfieldname": "rounded_total_export",
    "oldfieldtype": "Currency",
@@ -2225,7 +2225,7 @@
    "link_fieldname": "consolidated_invoice"
   }
  ],
- "modified": "2024-12-19 12:15:47.066744",
+ "modified": "2025-01-09 11:14:45.099143",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Sales Invoice",

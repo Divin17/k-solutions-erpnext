@@ -317,9 +317,13 @@ class SalesInvoice(SellingController):
 
 		# Update legal job status
 		if self.legal_job:
-			job = frappe.get_doc("Legal Job", self.legal_job)
-			job.status = "Invoiced"
-			job.save()
+			frappe.db.set_value(
+				"Legal Job", self.legal_job,
+				{
+						"status": "Invoiced",
+				},
+			)
+			frappe.db.commit()
 
 	def validate_pos_return(self):
 		if self.is_consolidated:
@@ -353,6 +357,13 @@ class SalesInvoice(SellingController):
 					get_link_to_form("POS Closing Entry", pos_closing_entry[0]),
 				)
 				frappe.throw(msg, title=_("Not Allowed"))
+
+	def before_delete(self):
+		frappe.db.sql(
+			"""delete from `tabGL Entry` where voucher_no = %s
+			and voucher_type = 'Sales Invoice'""",
+			self.name,
+		)
 
 	def before_cancel(self):
 		self.check_if_consolidated_invoice()

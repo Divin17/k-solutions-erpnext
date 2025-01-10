@@ -317,9 +317,13 @@ class SalesInvoice(SellingController):
 
 		# Update legal job status
 		if self.legal_job:
-			job = frappe.get_doc("Legal Job", self.legal_job)
-			job.status = "Invoiced"
-			job.save()
+			frappe.db.set_value(
+				"Legal Job", self.legal_job,
+				{
+						"status": "Invoiced",
+				},
+			)
+			frappe.db.commit()
 
 	def validate_pos_return(self):
 		if self.is_consolidated:
@@ -554,6 +558,14 @@ class SalesInvoice(SellingController):
 		if self.needs_repost:
 			self.validate_for_repost()
 			self.repost_accounting_entries()
+		if self.legal_job and (self.status == "Paid" or self.status == "Partly Paid"):
+			frappe.db.set_value(
+				"Legal Job", self.legal_job,
+				{
+						"status": self.status,
+				},
+			)
+			frappe.db.commit()
 
 	def set_paid_amount(self):
 		paid_amount = 0.0

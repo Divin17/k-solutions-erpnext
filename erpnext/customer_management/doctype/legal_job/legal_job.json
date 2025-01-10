@@ -85,7 +85,6 @@
    "fieldname": "names",
    "fieldtype": "Data",
    "label": "Names",
-   "options": "Name",
    "read_only": 1
   },
   {
@@ -144,7 +143,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Ongoing\nOn Hold\nCompleted\nInvoiced\nPartially Paid\nPaid\nRejected"
+   "options": "Ongoing\nOn Hold\nCompleted\nInvoiced\nPartly Paid\nPaid\nRejected"
   },
   {
    "default": "RWF",
@@ -195,7 +194,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-10 17:42:42.792319",
+ "modified": "2025-01-09 12:26:13.940835",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Legal Job",

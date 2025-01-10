@@ -101,6 +101,13 @@ class PaymentEntry(AccountsController):
 		self.update_legal_job()
 		self.set_status()
 
+	def before_delete(self):
+		frappe.db.sql(
+			"""delete from `tabGL Entry` where voucher_no = %s
+			and voucher_type = 'Payment Entry'""",
+			self.name,
+		)
+
 	def on_cancel(self):
 		self.ignore_linked_doctypes = (
 			"GL Entry",
