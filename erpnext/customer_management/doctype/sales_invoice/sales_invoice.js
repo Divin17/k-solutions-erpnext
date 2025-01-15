@@ -153,6 +153,10 @@ erpnext.accounts.SalesInvoiceController = class SalesInvoiceController extends e
 		})
 	}
 
+	after_save(doc){
+		cur_frm.dirty = false;
+	}
+
 	on_submit(doc, dt, dn) {
 		var me = this;
 
@@ -739,6 +743,7 @@ frappe.ui.form.on("Sales Invoice", {
 	},
 
 	get_legal_job_services: function (frm) {
+		frappe.dom.freeze("Getting legal jobs items.....")
 		frappe.db
 			.get_list("Legal Job Items", {
 				fields: ["item", "item_name", "qty", "rate", "amount", "uom", "description", "income_account"],
@@ -759,28 +764,40 @@ frappe.ui.form.on("Sales Invoice", {
 					frappe.model.set_value(row.doctype, row.name, "description", item.description)
 					frappe.model.set_value(row.doctype, row.name, "income_account", item.income_account)
 					frm.refresh_field("items");
+					frm.events.set_legal_jobs_items_rate(frm);
 				});
+				frappe.dom.unfreeze();
 			});
 	},
 	set_legal_jobs_items_rate: async function (frm) {
 		console.log("Set item for >>>>>>", is_item_rate_set, legal_jobs_items);
-		if (is_item_rate_set < 5 && legal_jobs_items && legal_jobs_items.length > 0) {
-			let legal_job_currency = (await frappe.db.get_value("Legal Job", frm.doc.legal_job, "currency")).message.currency;
-			frm.set_value("currency", legal_job_currency);
-			frm.doc.items.forEach((item) => {
-				legal_jobs_items.forEach((copy_item) => {
-					if (item.item_code == copy_item.item) {
-						frappe.model.set_value(item.doctype, item.name, "rate", copy_item.rate)
-						frappe.model.set_value(item.doctype, item.name, "amount", copy_item.amount)
-						frappe.model.set_value(item.doctype, item.name, "uom", copy_item.uom)
-						frappe.model.set_value(item.doctype, item.name, "stock_uom", copy_item.stock_uom)
-						frappe.model.set_value(item.doctype, item.name, "description", copy_item.description)
-						frappe.model.set_value(item.doctype, item.name, "income_account", copy_item.income_account)
-					}
-					frm.refresh_field("items");
+		// Freeze the form
+		frappe.dom.freeze("Processing, please wait...");
+		try {
+			if (is_item_rate_set < 3 && legal_jobs_items && legal_jobs_items.length > 0) {
+				let legal_job_currency = (await frappe.db.get_value("Legal Job", frm.doc.legal_job, "currency")).message.currency;
+				frm.set_value("currency", legal_job_currency);
+
+				frm.doc.items.forEach((item) => {
+					legal_jobs_items.forEach((copy_item) => {
+						if (item.item_code == copy_item.item) {
+							frappe.model.set_value(item.doctype, item.name, "rate", copy_item.rate);
+							frappe.model.set_value(item.doctype, item.name, "amount", copy_item.amount);
+							frappe.model.set_value(item.doctype, item.name, "uom", copy_item.uom);
+							frappe.model.set_value(item.doctype, item.name, "stock_uom", copy_item.stock_uom);
+							frappe.model.set_value(item.doctype, item.name, "description", copy_item.description);
+							frappe.model.set_value(item.doctype, item.name, "income_account", copy_item.income_account);
+						}
+					});
 				});
-			});
-			is_item_rate_set += 1;
+				frm.refresh_field("items");
+				is_item_rate_set += 1;
+			}
+		} catch (error) {
+			console.error("An error occurred while setting legal job items rate:", error);
+		} finally {
+			// Unfreeze the form
+			frappe.dom.unfreeze();
 		}
 	},
 
@@ -990,6 +1007,7 @@ frappe.ui.form.on("Sales Invoice", {
 		}else{
 			frm.set_value("debit_to", `Debtors - ${abbr}`)
 		}
+		frm.events.set_legal_jobs_items_rate(frm);
 	},
 
 	refresh: function (frm) {
