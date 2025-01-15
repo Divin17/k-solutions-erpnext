@@ -3,14 +3,16 @@
 
 frappe.ui.form.on("Legal Job", {
 	refresh: function (frm) {
-		frm.add_custom_button("Invoice the Job", function () {
-			console.log(frm.doc.services);
-			frappe.route_options = {
-				customer: frm.doc.customer,
-				legal_job: frm.doc.name,
-			};
-			frappe.new_doc("Sales Invoice");
-		});
+		if(!frm.is_new()){
+			frm.add_custom_button("Invoice the Job", function () {
+				console.log(frm.doc.services);
+				frappe.route_options = {
+					customer: frm.doc.customer,
+					legal_job: frm.doc.name,
+				};
+				frappe.new_doc("Sales Invoice");
+			});
+		}
 	},
 	onload_post_render: function (frm) {
 		frm.refresh_field("services");

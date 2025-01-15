@@ -140,6 +140,7 @@
    "options": "User"
   },
   {
+   "default": "Ongoing",
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
@@ -148,6 +149,7 @@
   {
    "default": "RWF",
    "fetch_from": "customer.default_currency",
+   "fetch_if_empty": 1,
    "fieldname": "currency",
    "fieldtype": "Link",
    "label": "Currency",
@@ -194,7 +196,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-09 12:26:13.940835",
+ "modified": "2025-01-14 13:12:04.559900",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Legal Job",

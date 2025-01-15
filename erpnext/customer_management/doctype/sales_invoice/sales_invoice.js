@@ -733,6 +733,8 @@ frappe.ui.form.on("Sales Invoice", {
 	},
 
 	legal_job: function (frm) {
+		is_item_rate_set = 0;
+		frm.set_value("conversion_rate", 1);
 		frm.events.get_legal_job_services(frm);
 	},
 
@@ -760,9 +762,11 @@ frappe.ui.form.on("Sales Invoice", {
 				});
 			});
 	},
-	set_legal_jobs_items_rate: function (frm) {
+	set_legal_jobs_items_rate: async function (frm) {
 		console.log("Set item for >>>>>>", is_item_rate_set, legal_jobs_items);
 		if (is_item_rate_set < 5 && legal_jobs_items && legal_jobs_items.length > 0) {
+			let legal_job_currency = (await frappe.db.get_value("Legal Job", frm.doc.legal_job, "currency")).message.currency;
+			frm.set_value("currency", legal_job_currency);
 			frm.doc.items.forEach((item) => {
 				legal_jobs_items.forEach((copy_item) => {
 					if (item.item_code == copy_item.item) {
@@ -975,6 +979,17 @@ frappe.ui.form.on("Sales Invoice", {
 			"total_billing_hours",
 			frm.doc.timesheets.reduce((a, b) => a + (b["billing_hours"] || 0.0), 0.0)
 		);
+	},
+
+	currency: async function (frm){
+		let currency = frappe.defaults.get_user_default("Currency");
+		let company = frappe.defaults.get_user_default("Company");
+		let abbr = (await frappe.db.get_value("Company", company, "abbr")).message.abbr;
+		if(frm.doc.currency != currency){
+			frm.set_value("debit_to", `Debtors ${frm.doc.currency} - ${abbr}`)
+		}else{
+			frm.set_value("debit_to", `Debtors - ${abbr}`)
+		}
 	},
 
 	refresh: function (frm) {

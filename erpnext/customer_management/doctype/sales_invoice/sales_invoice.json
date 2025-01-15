@@ -522,6 +522,7 @@
   },
   {
    "fetch_from": "legal_job.currency",
+   "fetch_if_empty": 1,
    "fieldname": "currency",
    "fieldtype": "Link",
    "hide_days": 1,
@@ -534,6 +535,7 @@
    "reqd": 1
   },
   {
+   "default": "1",
    "description": "Rate at which Customer Currency is converted to customer's base currency",
    "fieldname": "conversion_rate",
    "fieldtype": "Float",
@@ -2225,7 +2227,7 @@
    "link_fieldname": "consolidated_invoice"
   }
  ],
- "modified": "2025-01-09 11:14:45.099143",
+ "modified": "2025-01-14 15:35:45.804637",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Sales Invoice",

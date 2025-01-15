@@ -240,8 +240,7 @@
    "ignore_user_permissions": 1,
    "label": "Billing Currency",
    "no_copy": 1,
-   "options": "Currency",
-   "reqd": 1
+   "options": "Currency"
   },
   {
    "collapsible": 1,
@@ -587,7 +586,7 @@
    "link_fieldname": "party"
   }
  ],
- "modified": "2024-11-10 22:44:34.497665",
+ "modified": "2025-01-14 16:21:49.823478",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Customer",

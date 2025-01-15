@@ -101,12 +101,18 @@ class PaymentEntry(AccountsController):
 		self.update_legal_job()
 		self.set_status()
 
-	def before_delete(self):
+	def on_trash(self):
 		frappe.db.sql(
 			"""delete from `tabGL Entry` where voucher_no = %s
 			and voucher_type = 'Payment Entry'""",
 			self.name,
 		)
+		frappe.db.sql(
+			"""delete from `tabPayment Ledger Entry` where voucher_no = %s
+			and voucher_type = 'Payment Entry'""",
+			self.name,
+		)
+		frappe.db.commit()
 
 	def on_cancel(self):
 		self.ignore_linked_doctypes = (
