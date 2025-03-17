@@ -564,6 +564,7 @@ class SalesInvoice(SellingController):
                 data.sales_invoice = sales_invoice
 
     def on_update_after_submit(self):
+        self.update_legal_job()
         fields_to_check = [
 			"additional_discount_account",
 			"cash_bank_account",
@@ -581,6 +582,10 @@ class SalesInvoice(SellingController):
         if self.needs_repost:
             self.validate_for_repost()
             self.repost_accounting_entries()
+
+    def update_legal_job(self):
+       frappe.db.set_value("Legal Job", self.legal_job, {"status": self.status})
+       frappe.db.commit()
 
     def set_paid_amount(self):
         paid_amount = 0.0

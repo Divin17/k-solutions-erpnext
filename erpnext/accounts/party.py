@@ -489,8 +489,11 @@ def validate_party_gle_currency(party_type, party, company, party_account_curren
 		party_account_currency = get_party_account_currency(party_type, party, company)
 
 	existing_gle_currency = get_party_gle_currency(party_type, party, company)
+	allow_multi_currency_invoices_against_single_party_account = frappe.db.get_singles_value(
+			"Accounts Settings", "allow_multi_currency_invoices_against_single_party_account"
+		)
 
-	if existing_gle_currency and party_account_currency != existing_gle_currency:
+	if existing_gle_currency and party_account_currency != existing_gle_currency and not allow_multi_currency_invoices_against_single_party_account:
 		frappe.throw(
 			_(
 				"{0} {1} has accounting entries in currency {2} for company {3}. Please select a receivable or payable account with currency {2}."

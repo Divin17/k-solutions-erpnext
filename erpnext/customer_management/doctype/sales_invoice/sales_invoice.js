@@ -153,10 +153,6 @@ erpnext.accounts.SalesInvoiceController = class SalesInvoiceController extends e
 		})
 	}
 
-	after_save(doc){
-		cur_frm.dirty = false;
-	}
-
 	on_submit(doc, dt, dn) {
 		var me = this;
 
@@ -561,6 +557,13 @@ cur_frm.set_query("debit_to", function (doc) {
 		}
 	}
 });
+cur_frm.set_query("payment_account_number", function () {
+	return {
+		filters: {
+			currency: cur_frm.doc.currency,
+		}
+	}
+});
 
 cur_frm.set_query("asset", "items", function (doc, cdt, cdn) {
 	var d = locals[cdt][cdn];
@@ -740,6 +743,10 @@ frappe.ui.form.on("Sales Invoice", {
 		is_item_rate_set = 0;
 		frm.set_value("conversion_rate", 1);
 		frm.events.get_legal_job_services(frm);
+	},
+
+	get_legal_jobs_data: function (frm) {
+		frm.events.legal_job(frm);
 	},
 
 	get_legal_job_services: function (frm) {
@@ -998,13 +1005,13 @@ frappe.ui.form.on("Sales Invoice", {
 		);
 	},
 
-	currency: async function (frm){
+	currency: async function (frm) {
 		let currency = frappe.defaults.get_user_default("Currency");
 		let company = frappe.defaults.get_user_default("Company");
 		let abbr = (await frappe.db.get_value("Company", company, "abbr")).message.abbr;
-		if(frm.doc.currency != currency){
+		if (frm.doc.currency != currency) {
 			frm.set_value("debit_to", `Debtors ${frm.doc.currency} - ${abbr}`)
-		}else{
+		} else {
 			frm.set_value("debit_to", `Debtors - ${abbr}`)
 		}
 		frm.events.set_legal_jobs_items_rate(frm);
@@ -1013,7 +1020,7 @@ frappe.ui.form.on("Sales Invoice", {
 	refresh: function (frm) {
 		console.log("Legal job rate -->", Boolean(legal_jobs_items));
 		frm.set_df_property("conversion_rate", "read_only", 0);
-		frm.events.set_legal_jobs_items_rate(frm);
+		frm.events.currency(frm);
 		if (frm.doc.docstatus === 0 && !frm.doc.is_return) {
 			// frm.add_custom_button(__("Fetch Timesheet"), function () {
 			// 	let d = new frappe.ui.Dialog({

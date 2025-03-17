@@ -1,0 +1,58 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2025-02-12 12:15:54.436853",
+ "disable_prepared_report": 1,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "mandatory": 0,
+   "options": "Customer",
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "Default One",
+ "modified": "2025-03-17 15:44:54.915958",
+ "modified_by": "Administrator",
+ "module": "Customer Management",
+ "name": "Customer Totals",
+ "owner": "Administrator",
+ "prepared_report": 1,
+ "query": "SELECT \r\n    c.name AS customer,\r\n\r\n    -- Legal Jobs Total per Currency\r\n    COALESCE(SUM(CASE WHEN lj.currency = 'RWF' THEN lj.total_amount ELSE 0 END), 0) AS total_legal_jobs_rwf,\r\n    COALESCE(SUM(CASE WHEN lj.currency = 'USD' THEN lj.total_amount ELSE 0 END), 0) AS total_legal_jobs_usd,\r\n    COALESCE(SUM(CASE WHEN lj.currency = 'EUR' THEN lj.total_amount ELSE 0 END), 0) AS total_legal_jobs_eur,\r\n    COALESCE(SUM(CASE WHEN lj.currency = 'GBP' THEN lj.total_amount ELSE 0 END), 0) AS total_legal_jobs_gbp,\r\n\r\n    -- Total Invoices in Company Currency (Converted)\r\n    COALESCE(SUM(si.base_grand_total), 0) AS total_invoices_company_currency,\r\n\r\n    -- Total Payments in Company Currency\r\n    COALESCE(SUM(p.base_paid_amount), 0) AS total_payments_company_currency,\r\n    \"USD\" AS currency_usd,\r\n    \"EUR\" AS currency_eur,\r\n    \"GBP\" AS currency_gbp\r\n\r\nFROM `tabCustomer` c\r\nLEFT JOIN `tabLegal Job` lj ON c.name = lj.customer\r\nLEFT JOIN `tabSales Invoice` si ON c.name = si.customer\r\nLEFT JOIN `tabPayment Entry` p ON c.name = p.party AND p.party_type = 'Customer'\r\n\r\nWHERE \r\n    IFNULL(%(customer)s, '') = '' OR c.name = %(customer)s;\r\n",
+ "ref_doctype": "Customer",
+ "report_name": "Customer Totals",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Sales Master Manager"
+  },
+  {
+   "role": "Stock User"
+  },
+  {
+   "role": "Stock Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Legal"
+  }
+ ]
+}

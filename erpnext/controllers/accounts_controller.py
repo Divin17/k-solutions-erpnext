@@ -1894,11 +1894,15 @@ class AccountsController(TransactionBase):
 			party_type, party = self.get_party()
 			if party_type and party:
 				party_account_currency = get_party_account_currency(party_type, party, self.company)
+				allow_multi_currency_invoices_against_single_party_account = frappe.db.get_singles_value(
+						"Accounts Settings", "allow_multi_currency_invoices_against_single_party_account"
+					)
 
 				if (
 					party_account_currency
 					and party_account_currency != self.company_currency
 					and self.currency != party_account_currency
+					and not allow_multi_currency_invoices_against_single_party_account
 				):
 					frappe.throw(
 						_("Accounting Entry for {0}: {1} can only be made in currency: {2}").format(

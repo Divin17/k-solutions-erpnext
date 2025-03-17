@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"kb3XPLg8lb\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"Y7X6ZCOHD3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customers\",\"col\":3}},{\"id\":\"iD6RRoBQCW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Quotation\",\"col\":3}},{\"id\":\"iZekJDKNS-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Lega Jobs\",\"col\":3}},{\"id\":\"0czBQvusi5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoices\",\"col\":3}},{\"id\":\"rZqDxIdqS7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Invoices Payments\",\"col\":3}},{\"id\":\"zXnp7mB_gm\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item\",\"col\":3}},{\"id\":\"d_KVM1gsf9\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"8BC2-cGiO2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports</b></span>\",\"col\":12}},{\"id\":\"4JFFfesGMK\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customers Report\",\"col\":3}}]",
+ "content": "[{\"id\":\"kb3XPLg8lb\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"Y7X6ZCOHD3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customers\",\"col\":3}},{\"id\":\"iD6RRoBQCW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Quotation\",\"col\":3}},{\"id\":\"iZekJDKNS-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Lega Jobs\",\"col\":3}},{\"id\":\"0czBQvusi5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoices\",\"col\":3}},{\"id\":\"rZqDxIdqS7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Invoices Payments\",\"col\":3}},{\"id\":\"zXnp7mB_gm\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item\",\"col\":3}},{\"id\":\"d_KVM1gsf9\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"8BC2-cGiO2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports</b></span>\",\"col\":12}},{\"id\":\"4JFFfesGMK\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customers Report\",\"col\":3}},{\"id\":\"tF0OsqSiAU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customers' Totals\",\"col\":3}}]",
  "creation": "2020-01-23 13:46:38.833076",
  "custom_blocks": [],
  "docstatus": 0,
@@ -200,7 +200,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-11-19 10:58:50.162598",
+ "modified": "2025-02-12 12:45:17.514025",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Home",
@@ -233,6 +233,13 @@
    "doc_view": "List",
    "label": "Customers Report",
    "link_to": "Customer Details",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Customers' Totals",
+   "link_to": "Customer Totals",
    "type": "Report"
   },
   {

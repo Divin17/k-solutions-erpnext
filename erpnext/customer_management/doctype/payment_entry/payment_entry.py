@@ -567,16 +567,6 @@ class PaymentEntry(AccountsController):
 							)
 						)
 
-
-	def update_legal_job(self):
-		for ref in self.get("references"):
-			if (ref.reference_doctype == "Sales Invoice"):
-				doc = frappe.get_doc(ref.reference_doctype, ref.reference_name)
-				if doc.legal_job:
-					job = frappe.get_doc("Legal Job", doc.legal_job)
-					job.status = ""
-					job.save()
-
 	def update_payment_schedule(self, cancel=0):
 		invoice_payment_amount_map = {}
 		invoice_paid_amount_map = {}

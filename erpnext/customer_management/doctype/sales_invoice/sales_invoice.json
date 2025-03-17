@@ -1,17 +1,17 @@
 {
  "actions": [],
  "allow_import": 1,
- "autoname": "naming_series:",
+ "autoname": "format:ACC-SINV-{YYYY}{MM}{DD}{##}",
  "creation": "2022-01-25 10:29:57.771398",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "customer_section",
   "title",
-  "naming_series",
   "customer",
   "customer_name",
   "legal_job",
+  "get_legal_jobs_data",
   "tax_id",
   "company",
   "company_tax_id",
@@ -51,7 +51,10 @@
   "set_target_warehouse",
   "section_break_42",
   "items",
+  "section_break_wp7lt",
   "job_description",
+  "column_break_kczjl",
+  "payment_account_number",
   "section_break_30",
   "total_qty",
   "total_net_weight",
@@ -240,21 +243,6 @@
   },
   {
    "bold": 1,
-   "fieldname": "naming_series",
-   "fieldtype": "Select",
-   "hide_days": 1,
-   "hide_seconds": 1,
-   "label": "Series",
-   "no_copy": 1,
-   "oldfieldname": "naming_series",
-   "oldfieldtype": "Select",
-   "options": "ACC-SINV-.YYYY.-\nACC-SINV-RET-.YYYY.-",
-   "print_hide": 1,
-   "reqd": 1,
-   "set_only_once": 1
-  },
-  {
-   "bold": 1,
    "fetch_from": "legal_job.customer",
    "fieldname": "customer",
    "fieldtype": "Link",
@@ -294,7 +282,6 @@
    "hide_days": 1,
    "hide_seconds": 1,
    "label": "Tax Id",
-   "print_hide": 1,
    "read_only": 1
   },
   {
@@ -989,7 +976,6 @@
    "length": 240,
    "oldfieldname": "in_words_export",
    "oldfieldtype": "Data",
-   "print_hide": 1,
    "read_only": 1
   },
   {
@@ -1064,6 +1050,7 @@
    "allow_on_submit": 1,
    "fieldname": "additional_discount_account",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Discount Account",
    "options": "Account"
   },
@@ -1823,7 +1810,6 @@
   {
    "fieldname": "party_account_currency",
    "fieldtype": "Link",
-   "hidden": 1,
    "hide_days": 1,
    "hide_seconds": 1,
    "label": "Party Account Currency",
@@ -2215,6 +2201,26 @@
    "label": "Job Description",
    "max_height": "100px",
    "read_only_depends_on": "false"
+  },
+  {
+   "fieldname": "get_legal_jobs_data",
+   "fieldtype": "Button",
+   "label": "Get legal jobs's data"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "payment_account_number",
+   "fieldtype": "Link",
+   "label": "Payment Account Number",
+   "options": "Payment Accounts"
+  },
+  {
+   "fieldname": "column_break_kczjl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_wp7lt",
+   "fieldtype": "Section Break"
   }
  ],
  "icon": "fa fa-file-text",
@@ -2227,11 +2233,11 @@
    "link_fieldname": "consolidated_invoice"
   }
  ],
- "modified": "2025-01-14 15:35:45.804637",
+ "modified": "2025-02-18 12:32:30.590409",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Sales Invoice",
- "naming_rule": "By \"Naming Series\" field",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

@@ -23,6 +23,7 @@
   "bank_account",
   "party_bank_account",
   "contact_person",
+  "contact_phone",
   "contact_email",
   "payment_accounts_section",
   "party_balance",
@@ -746,6 +747,14 @@
    "label": "Title",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "depends_on": "contact_person",
+   "fetch_from": "contact_person.mobile_no",
+   "fieldname": "contact_phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "options": "Phone"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -759,7 +768,7 @@
    "table_fieldname": "payment_entries"
   }
  ],
- "modified": "2025-01-09 16:42:10.016069",
+ "modified": "2025-01-27 14:16:42.489784",
  "modified_by": "Administrator",
  "module": "Customer Management",
  "name": "Payment Entry",
